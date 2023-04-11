@@ -3,10 +3,11 @@ const express = require("express");
 const { verifyToken } = require("../middleware/jwt");
 const {
   createOrder,
-  //   getOrders,
+  getOrders,
 } = require("../controllers/order.controller.js");
 const router = express.Router();
 
 // router.get("/",verifyToken,getOrders);
-router.post("/", verifyToken, createOrder);
+router.post("/:gigId", verifyToken, createOrder);
+router.get("/", verifyToken, getOrders);
 module.exports = router;
