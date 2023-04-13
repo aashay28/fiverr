@@ -5,14 +5,17 @@ import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 const Orders = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const token = JSON.parse(localStorage.getItem("accessToken"));
   const { isLoading, error, data } = useQuery({
     queryKey: ["orders"],
     queryFn: () =>
-      newRequest.get(`/orders`).then((res) => {
-        return res.data;
-      }),
+      newRequest(token)
+        .get(`/orders`)
+        .then((res) => {
+          return res.data;
+        }),
   });
-  console.log("data", data);
+  
   return (
     <div className='orders'>
       <div className='container'>

@@ -6,20 +6,22 @@ import newRequest from "../../utils/newRequest";
 const Message = () => {
   const { id } = useParams();
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
+  const token = JSON.parse(localStorage.getItem("accessToken"));
   const queryClient = useQueryClient();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["messages"],
     queryFn: () =>
-      newRequest.get(`/messages/${id}`).then((res) => {
-        return res.data;
-      }),
+      newRequest(token)
+        .get(`/messages/${id}`)
+        .then((res) => {
+          return res.data;
+        }),
   });
 
   const mutation = useMutation({
     mutationFn: (messageData) => {
-      return newRequest.post(`/messages`, messageData);
+      return newRequest(token).post(`/messages`, messageData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["messages"]);
@@ -34,7 +36,7 @@ const Message = () => {
     });
     e.target[0].value = "";
   };
-  console.log("data", data);
+ 
   return (
     <div className='message'>
       <div className='container'>

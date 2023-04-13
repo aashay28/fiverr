@@ -3,14 +3,16 @@ import "./Gig.scss";
 import { Slider } from "infinite-react-carousel/lib";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import newRequest from "../../utils/newRequest";
+import Request from "../../utils/Request";
 import Reviews from "../../components/reviews/Reviews";
+import newRequest from "../../utils/newRequest";
 function Gig() {
   const { id } = useParams();
+  const token = JSON.parse(localStorage.getItem("accessToken"));
   const { isLoading, error, data } = useQuery({
     queryKey: ["gig"],
     queryFn: () =>
-      newRequest.get(`/gigs/single/${id}`).then((res) => {
+      Request.get(`/gigs/single/${id}`).then((res) => {
         return res.data;
       }),
   });
@@ -22,9 +24,11 @@ function Gig() {
   } = useQuery({
     queryKey: ["User"],
     queryFn: () =>
-      newRequest.get(`/users/${UserId}`).then((res) => {
-        return res.data;
-      }),
+      newRequest(token)
+        .get(`/users/${UserId}`)
+        .then((res) => {
+          return res.data;
+        }),
     enabled: !!UserId,
   });
 

@@ -1,21 +1,23 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
+import Request from "../../utils/Request";
 import newRequest from "../../utils/newRequest";
 import Review from "../review/Review";
 import "./Reviews.scss";
 const Reviews = ({ gigId }) => {
+  const token = JSON.parse(localStorage.getItem("accessToken"));
   const queryClient = useQueryClient();
   const { isLoading, error, data } = useQuery({
     queryKey: ["reviews"],
     queryFn: () =>
-      newRequest.get(`/reviews/${gigId}`).then((res) => {
+      Request.get(`/reviews/${gigId}`).then((res) => {
         return res.data;
       }),
   });
 
   const mutation = useMutation({
     mutationFn: (review) => {
-      return newRequest.post("/reviews", review);
+      return newRequest(token).post("/reviews", review);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["reviews"]);
@@ -28,7 +30,7 @@ const Reviews = ({ gigId }) => {
     const star = e.target[1].value;
     mutation.mutate({ gigId, desc, star });
   };
-  console.log("data", data);
+ 
   return (
     <div className='reviews'>
       <h2>Reviews</h2>

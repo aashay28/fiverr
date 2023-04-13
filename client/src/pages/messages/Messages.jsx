@@ -6,18 +6,21 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import moment from "moment";
 const Messages = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const token = JSON.parse(localStorage.getItem("accessToken"));
   const queryClient = useQueryClient();
   const { isLoading, error, data } = useQuery({
     queryKey: ["conversations"],
     queryFn: () =>
-      newRequest.get(`/conversations`).then((res) => {
-        return res.data;
-      }),
+      newRequest(token)
+        .get(`/conversations`)
+        .then((res) => {
+          return res.data;
+        }),
   });
 
   const mutation = useMutation({
     mutationFn: (id) => {
-      return newRequest.put(`/conversations/${id}`);
+      return newRequest(token).put(`/conversations/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["conversations"]);
@@ -26,10 +29,7 @@ const Messages = () => {
   const handleRead = (id) => {
     mutation.mutate(id);
   };
-  const message = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
-  maxime cum corporis esse aspernatur laborum dolorum? Animi
-  molestias aliquam, cum nesciunt, aut, ut quam vitae saepe repellat
-  nobis praesentium placeat.`;
+
   return (
     <div className='messages'>
       {isLoading ? (

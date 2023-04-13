@@ -3,7 +3,7 @@ import "./Gigs.scss";
 
 import GigCard from "../../components/gigCard/GigCard";
 import { useQuery } from "@tanstack/react-query";
-import newRequest from "../../utils/newRequest";
+import Request from "../../utils/Request";
 import { useLocation } from "react-router-dom";
 
 function Gigs() {
@@ -17,13 +17,11 @@ function Gigs() {
   const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["gigs"],
     queryFn: () =>
-      newRequest
-        .get(
-          `/gigs${search}&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`
-        )
-        .then((res) => {
-          return res.data;
-        }),
+      Request.get(
+        `/gigs${search}&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`
+      ).then((res) => {
+        return res.data;
+      }),
   });
 
   const reSort = (type) => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login.scss";
-import newRequest from "../../utils/newRequest";
+import Request from "../../utils/Request";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -13,8 +13,9 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await newRequest.post("/auth/login", { username, password });
-      localStorage.setItem("currentUser", JSON.stringify(res.data));
+      const res = await Request.post("/auth/login", { username, password });
+      localStorage.setItem("currentUser", JSON.stringify(res.data.data));
+      localStorage.setItem("accessToken", JSON.stringify(res.data.token));
       navigate("/");
     } catch (err) {
       setError(err.response.data);

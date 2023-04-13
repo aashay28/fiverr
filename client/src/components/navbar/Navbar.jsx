@@ -22,11 +22,13 @@ function Navbar() {
   }, []);
 
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const token = JSON.parse(localStorage.getItem("accessToken"));
 
   const handleLogout = async () => {
     try {
-      await newRequest.post("/auth/logout");
+      await newRequest(token).post("/auth/logout");
       localStorage.setItem("currentUser", null);
+      localStorage.setItem("accessToken", null);
       navigate("/");
     } catch (err) {
       console.log("err", err);

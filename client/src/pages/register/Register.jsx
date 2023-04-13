@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import upload from "../../utils/upload.js";
 import "./Register.scss";
-import newRequest from "../../utils/newRequest";
+import Request from "../../utils/Request";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
@@ -35,7 +35,7 @@ function Register() {
     const url = await upload(file);
 
     try {
-      await newRequest.post("/auth/register", {
+      await Request.post("/auth/register", {
         ...user,
         img: url,
       });

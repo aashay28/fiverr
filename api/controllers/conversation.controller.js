@@ -49,7 +49,7 @@ exports.updateConversations = async (req, res, next) => {
       },
       { new: true }
     );
-    console.log("updatedConversation", updatedConversation);
+   
     res.status(200).send(updatedConversation);
   } catch (err) {
     next(err);
