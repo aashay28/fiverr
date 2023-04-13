@@ -1,6 +1,11 @@
 const express = require("express");
-// const { fn } = require("../controllers/user.controller.js");
+const {
+  createMessage,
+  getMessages,
+} = require("../controllers/message.controller.js");
+const { verifyToken } = require("../middleware/jwt.js");
 const router = express.Router();
 
-router.get("/test");
+router.get("/:id", verifyToken, getMessages);
+router.post("/", verifyToken, createMessage);
 module.exports = router;

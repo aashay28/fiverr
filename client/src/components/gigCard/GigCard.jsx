@@ -1,14 +1,14 @@
 import React from "react";
 import "./GigCard.scss";
 import { Link } from "react-router-dom";
-import newRequest from "../../utils/newRequest";
+import Request from "../../utils/Request";
 import { useQuery } from "@tanstack/react-query";
 
 const GigCard = ({ item }) => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["gigsUser"],
     queryFn: () =>
-      newRequest.get(`/users/${item.userId}`).then((res) => {
+      Request.get(`/users/${item.userId}`).then((res) => {
         return res.data;
       }),
   });

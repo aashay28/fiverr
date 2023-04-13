@@ -5,6 +5,7 @@ const Gig = require("../models/gig.model.js");
 exports.createOrder = async (req, res, next) => {
   try {
     const gig = await Gig.findById(req.params.gigId);
+
     const newOrder = new Order({
       gigId: gig._id,
       img: gig.cover,
@@ -23,7 +24,7 @@ exports.createOrder = async (req, res, next) => {
 exports.getOrders = async (req, res, next) => {
   try {
     const orders = await Order.find({
-      ...(req.sellerId ? { sellerId: req.userId } : { buyerId: req.userId }),
+      ...(req.isSeller ? { sellerId: req.userId } : { buyerId: req.userId }),
       isCompleted: true,
     });
 
