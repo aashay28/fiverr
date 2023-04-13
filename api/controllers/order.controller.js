@@ -23,10 +23,10 @@ exports.createOrder = async (req, res, next) => {
 exports.getOrders = async (req, res, next) => {
   try {
     const orders = await Order.find({
-      ...(req.sellerId ? { sellerId: req.userId } : { buyerId: req.userId }),
+      ...(req.isSeller ? { sellerId: req.userId } : { buyerId: req.userId }),
       isCompleted: true,
     });
-
+    console.log("orders", orders);
     res.status(200).send(orders);
   } catch (err) {
     next(err);
