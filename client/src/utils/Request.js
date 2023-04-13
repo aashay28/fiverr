@@ -1,7 +1,8 @@
 import axios from "axios";
-
+// const baseURL = "http://localhost:8800/api/";
+const baseURL = "http://192.168.100.42:8800/api/";
 const Request = axios.create({
-  baseURL: "http://localhost:8800/api/",
+  baseURL: baseURL,
 });
 
 export default Request;

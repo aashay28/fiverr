@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Orders.scss";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 const Orders = () => {
+  const navigate = useNavigate();
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const token = JSON.parse(localStorage.getItem("accessToken"));
   const { isLoading, error, data } = useQuery({
@@ -15,7 +16,33 @@ const Orders = () => {
           return res.data;
         }),
   });
-  
+  const openConversation = async (order) => {
+    console.log("order", order);
+    const conId = order.sellerId.concat(order.buyerId);
+
+    const messages = await newRequest(token)
+      .get(`/conversations`)
+      .then((res) => {
+        return res.data;
+      });
+    messages.map((val) => console.log("messages", val.id));
+    console.log("conId", conId);
+
+    if (messages.some((val) => val.id === conId)) {
+      return navigate(
+        `/message/${
+          currentUser?.isSeller
+            ? order.sellerId + order.buyerId
+            : order.buyerId + order.sellerId
+        }`
+      );
+    }
+    const id = currentUser.isSeller ? order.buyerId : order.sellerId;
+    await newRequest(token).post(`/conversations`, {
+      to: `${id}`,
+    });
+    navigate(`/messages`);
+  };
   return (
     <div className='orders'>
       <div className='container'>
@@ -44,7 +71,7 @@ const Orders = () => {
                   <td>
                     {currentUser.isSeller ? order.buyerId : order.sellerId}
                   </td>
-                  <td>
+                  <td onClick={() => openConversation(order)}>
                     <img className='message' src='./img/message.png' alt='' />
                   </td>
                 </tr>
