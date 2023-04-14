@@ -36,7 +36,7 @@ const Message = () => {
     });
     e.target[0].value = "";
   };
- 
+
   return (
     <div className='message'>
       <div className='container'>
@@ -65,8 +65,14 @@ const Message = () => {
           </div>
         )}
         <hr />
-        <form className='write' onSubmit={handleSubmit}>
-          <textarea type='text' placeholder='write a message' />
+        <form
+          className='write'
+          onKeyDown={(e) => {
+            if (e.key === "Enter") return handleSubmit;
+          }}
+          onSubmit={handleSubmit}
+        >
+          <input type='text' placeholder='write a message' />
           <button>Send</button>
         </form>
       </div>
