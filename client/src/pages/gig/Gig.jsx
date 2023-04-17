@@ -1,7 +1,7 @@
 import React from "react";
 import "./Gig.scss";
 import { Slider } from "infinite-react-carousel/lib";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Request from "../../utils/Request";
 import Reviews from "../../components/reviews/Reviews";
@@ -127,7 +127,7 @@ function Gig() {
           <div className='right'>
             <div className='price'>
               <h3>{data.shortTitle}</h3>
-              <h2>$ {data.price}</h2>
+              <h2>₹ {data.price}</h2>
             </div>
             <p>{data.shortDesc}</p>
             <div className='details'>
@@ -164,7 +164,9 @@ function Gig() {
                 <span>Additional design</span>
               </div> */}
             </div>
-            <button>Continue</button>
+            <Link to={`/pay/${id}`}>
+              <button>Continue</button>
+            </Link>
           </div>
         </div>
       )}
