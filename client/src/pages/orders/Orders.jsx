@@ -17,31 +17,21 @@ const Orders = () => {
         }),
   });
   const openConversation = async (order) => {
-    console.log("order", order);
-    const conId = order.sellerId.concat(order.buyerId);
+    const sellerId = order.sellerId;
+    const buyerId = order.buyerId;
+    const id = sellerId + buyerId;
 
-    const messages = await newRequest(token)
-      .get(`/conversations`)
-      .then((res) => {
-        return res.data;
-      });
-    messages.map((val) => console.log("messages", val.id));
-    console.log("conId", conId);
-
-    if (messages.some((val) => val.id === conId)) {
-      return navigate(
-        `/message/${
-          currentUser?.isSeller
-            ? order.sellerId + order.buyerId
-            : order.buyerId + order.sellerId
-        }`
-      );
+    try {
+      const res = await newRequest(token).get(`/conversations/single/${id}`);
+      navigate(`/message/${res.data.id}`);
+    } catch (err) {
+      if (err.response.status === 404) {
+        const res = await newRequest(token).post(`/conversations/`, {
+          to: currentUser.seller ? buyerId : sellerId,
+        });
+        navigate(`/message/${res.data.id}`);
+      }
     }
-    const id = currentUser.isSeller ? order.buyerId : order.sellerId;
-    await newRequest(token).post(`/conversations`, {
-      to: `${id}`,
-    });
-    navigate(`/messages`);
   };
   return (
     <div className='orders'>

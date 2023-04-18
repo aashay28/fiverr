@@ -1,7 +1,7 @@
 import React from "react";
 import "./Gig.scss";
 import { Slider } from "infinite-react-carousel/lib";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Request from "../../utils/Request";
 import Reviews from "../../components/reviews/Reviews";
@@ -52,13 +52,19 @@ function Gig() {
                 <img className='pp' src={dataUser.img} alt='' />
                 <span>{dataUser.username}</span>
                 <div className='stars'>
-                  {Array(Math.round(data.totalStars / data.starNumber))
-                    .fill()
-                    .map((item, i) => (
-                      <img src='/img/star.png' alt='' key={i} />
-                    ))}
+                  {data?.totalStars &&
+                    data?.starNumber &&
+                    Array(Math?.round(data?.totalStars / data?.starNumber))
+                      .fill()
+                      .map((item, i) => (
+                        <img src='/img/star.png' alt='' key={i} />
+                      ))}
 
-                  <span>{Math.round(data.totalStars / data.starNumber)}</span>
+                  <span>
+                    {data?.totalStars &&
+                      data?.starNumber &&
+                      Math.round(data?.totalStars / data?.starNumber)}
+                  </span>
                 </div>
               </div>
             )}
@@ -81,14 +87,18 @@ function Gig() {
                   <div className='info'>
                     <span>{dataUser.username}</span>
                     <div className='stars'>
-                      {Array(Math.round(data.totalStars / data.starNumber))
-                        .fill()
-                        .map((item, i) => (
-                          <img src='/img/star.png' alt='' key={i} />
-                        ))}
+                      {data?.totalStars &&
+                        data?.starNumber &&
+                        Array(Math.round(data?.totalStars / data?.starNumber))
+                          .fill()
+                          .map((item, i) => (
+                            <img src='/img/star.png' alt='' key={i} />
+                          ))}
 
                       <span>
-                        {Math.round(data.totalStars / data.starNumber)}
+                        {data?.totalStars &&
+                          data?.starNumber &&
+                          Math.round(data?.totalStars / data?.starNumber)}
                       </span>
                     </div>
                     <button>Contact Me</button>
@@ -127,7 +137,7 @@ function Gig() {
           <div className='right'>
             <div className='price'>
               <h3>{data.shortTitle}</h3>
-              <h2>$ {data.price}</h2>
+              <h2>₹ {data.price}</h2>
             </div>
             <p>{data.shortDesc}</p>
             <div className='details'>
@@ -164,7 +174,9 @@ function Gig() {
                 <span>Additional design</span>
               </div> */}
             </div>
-            <button>Continue</button>
+            <Link to={`/pay/${id}`}>
+              <button>Continue</button>
+            </Link>
           </div>
         </div>
       )}

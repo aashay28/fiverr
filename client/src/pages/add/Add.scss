@@ -37,6 +37,18 @@
           padding: 20px;
         }
 
+        .images {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+
+          .imagesInputs {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+        }
+
         button {
           border: none;
           padding: 20px;
@@ -45,6 +57,32 @@
           font-size: 18px;
           background-color: #1dbf73;
           cursor: pointer;
+        }
+
+        .add {
+          display: flex;
+          justify-content: space-between;
+
+          input {
+            width: 80%;
+          }
+        }
+
+        .addedFeatures {
+          display: flex;
+          gap: 20px;
+
+          button {
+            height: 30px;
+            font-size: 12px;
+            font-weight: 400;
+            background: transparent;
+            color: red;
+            border: 1px solid red;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+          }
         }
       }
     }
