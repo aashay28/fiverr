@@ -52,13 +52,19 @@ function Gig() {
                 <img className='pp' src={dataUser.img} alt='' />
                 <span>{dataUser.username}</span>
                 <div className='stars'>
-                  {Array(Math.round(data.totalStars / data.starNumber))
-                    .fill()
-                    .map((item, i) => (
-                      <img src='/img/star.png' alt='' key={i} />
-                    ))}
+                  {data?.totalStars &&
+                    data?.starNumber &&
+                    Array(Math?.round(data?.totalStars / data?.starNumber))
+                      .fill()
+                      .map((item, i) => (
+                        <img src='/img/star.png' alt='' key={i} />
+                      ))}
 
-                  <span>{Math.round(data.totalStars / data.starNumber)}</span>
+                  <span>
+                    {data?.totalStars &&
+                      data?.starNumber &&
+                      Math.round(data?.totalStars / data?.starNumber)}
+                  </span>
                 </div>
               </div>
             )}
@@ -81,14 +87,18 @@ function Gig() {
                   <div className='info'>
                     <span>{dataUser.username}</span>
                     <div className='stars'>
-                      {Array(Math.round(data.totalStars / data.starNumber))
-                        .fill()
-                        .map((item, i) => (
-                          <img src='/img/star.png' alt='' key={i} />
-                        ))}
+                      {data?.totalStars &&
+                        data?.starNumber &&
+                        Array(Math.round(data?.totalStars / data?.starNumber))
+                          .fill()
+                          .map((item, i) => (
+                            <img src='/img/star.png' alt='' key={i} />
+                          ))}
 
                       <span>
-                        {Math.round(data.totalStars / data.starNumber)}
+                        {data?.totalStars &&
+                          data?.starNumber &&
+                          Math.round(data?.totalStars / data?.starNumber)}
                       </span>
                     </div>
                     <button>Contact Me</button>
