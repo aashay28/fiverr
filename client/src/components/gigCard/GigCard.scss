@@ -28,9 +28,6 @@
         border-radius: 50%;
         object-fit: cover;
       }
-
-      span {
-      }
     }
 
     p {
@@ -65,7 +62,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    margin-top: 1.5rem;
     img {
       width: 16px;
       height: 16px;

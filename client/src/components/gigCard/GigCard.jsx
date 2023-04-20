@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./GigCard.scss";
 import { Link } from "react-router-dom";
 import Request from "../../utils/Request";
@@ -35,13 +35,12 @@ const GigCard = ({ item }) => {
               <span>{data.username}</span>
             </div>
           )}
-          <LongText content={item.desc} limit={250}></LongText>
+          <LongText content={item.desc} limit={150}></LongText>
           <div className='star'>
             <img src='./img/star.png' alt='' />
             <span>{item.totalStars}</span>
           </div>
         </div>
-        <hr />
         <div className='detail'>
           <img src='./img/heart.png' alt='' />
           <div className='price'>
@@ -49,6 +48,7 @@ const GigCard = ({ item }) => {
             <h2>₹ {item.price}</h2>
           </div>
         </div>
+        <hr />
       </div>
     </Link>
   );
