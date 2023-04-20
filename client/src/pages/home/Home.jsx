@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./Home.scss";
 import Featured from "../../components/featured/Featured";
 import TrustedBy from "../../components/trustedBy/TrustedBy";
@@ -8,6 +8,19 @@ import ProjectCard from "../../components/projectCard/ProjectCard";
 import { cards, projects } from "../../data";
 
 function Home() {
+  const videoEl = useRef(null);
+
+  const attemptPlay = () => {
+    videoEl &&
+      videoEl.current &&
+      videoEl.current.play().catch((error) => {
+        console.error("Error attempting to play", error);
+      });
+  };
+
+  useEffect(() => {
+    attemptPlay();
+  }, []);
   return (
     <div className='home'>
       <Featured />
@@ -56,9 +69,15 @@ function Home() {
           </div>
           <div className='item'>
             <video
-              src='https://player.vimeo.com/external/289258217.sd.mp4?s=50b11b521df767740fa56e4743159474f540afa2&profile_id=164&oauth2_token_id=57447761'
-              controls
-            />
+              autoPlay
+              src='https://player.vimeo.com/external/408278747.sd.mp4?s=22ce19663174765b4faafb6e11fca46620149ad3&profile_id=165&oauth2_token_id=57447761'
+              type='video/mp4'
+              playsInline
+              loop
+              muted
+              alt='All the devices'
+              ref={videoEl}
+            ></video>
           </div>
         </div>
       </div>

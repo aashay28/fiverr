@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./GigCard.scss";
 import { Link } from "react-router-dom";
 import Request from "../../utils/Request";
@@ -12,6 +12,13 @@ const GigCard = ({ item }) => {
         return res.data;
       }),
   });
+  const LongText = ({ content, limit }) => {
+    if (content.length <= limit) {
+      return <div>{content}</div>;
+    }
+
+    return <div>{content.substring(0, limit) + "..."}</div>;
+  };
 
   return (
     <Link to={`/gig/${item._id}`} className='link'>
@@ -28,7 +35,7 @@ const GigCard = ({ item }) => {
               <span>{data.username}</span>
             </div>
           )}
-          <p>{item.desc}</p>
+          <LongText content={item.desc} limit={250}></LongText>
           <div className='star'>
             <img src='./img/star.png' alt='' />
             <span>{item.totalStars}</span>
