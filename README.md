@@ -91,5 +91,3 @@ Hey there, I'm Aashay Shah<br>I am highly skilled in developing web applications
 [![](https://gtce.itsvg.in/api?username=aashayshah28)](https://github.com/VishwaGauravIn/github-twitter-card-embed)
 
 ---
-
-[![](https://visitcount.itsvg.in/api?id=aashay28&icon=0&color=0)](https://visitcount.itsvg.in)
