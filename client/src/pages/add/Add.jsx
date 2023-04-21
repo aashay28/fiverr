@@ -44,7 +44,7 @@ const Add = () => {
       console.log(err);
     }
   };
-  console.log("state", state);
+
   const navigate = useNavigate();
   const token = getAccessToken();
   const queryClient = useQueryClient();

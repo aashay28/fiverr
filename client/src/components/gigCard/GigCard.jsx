@@ -12,6 +12,13 @@ const GigCard = ({ item }) => {
         return res.data;
       }),
   });
+  const LongText = ({ content, limit }) => {
+    if (content.length <= limit) {
+      return <div>{content}</div>;
+    }
+
+    return <div>{content.substring(0, limit) + "..."}</div>;
+  };
 
   return (
     <Link to={`/gig/${item._id}`} className='link'>
@@ -28,13 +35,12 @@ const GigCard = ({ item }) => {
               <span>{data.username}</span>
             </div>
           )}
-          <p>{item.desc}</p>
+          <LongText content={item.desc} limit={150}></LongText>
           <div className='star'>
             <img src='./img/star.png' alt='' />
             <span>{item.totalStars}</span>
           </div>
         </div>
-        <hr />
         <div className='detail'>
           <img src='./img/heart.png' alt='' />
           <div className='price'>
@@ -42,6 +48,7 @@ const GigCard = ({ item }) => {
             <h2>₹ {item.price}</h2>
           </div>
         </div>
+        <hr />
       </div>
     </Link>
   );

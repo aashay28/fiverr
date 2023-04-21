@@ -10,7 +10,9 @@
     .title {
       display: flex;
       justify-content: space-between;
-
+      a {
+        text-decoration: none;
+      }
       button {
         background-color: #1dbf73;
         color: white;
@@ -30,14 +32,13 @@
           text-align: left;
         }
         td {
-
-          sup{
+          sup {
             font-size: 12px;
           }
-          
+
           .image {
-            width: 50px;
-            height: 25px;
+            width: 90px;
+            height: 60px;
             object-fit: cover;
           }
 
@@ -45,7 +46,6 @@
             width: 20px;
             cursor: pointer;
           }
-
         }
         &:nth-child(even) {
           background-color: #1dbf730f;
