@@ -48,7 +48,7 @@ exports.getOrders = async (req, res, next) => {
 };
 exports.confirm = async (req, res, next) => {
   try {
-    await Order.findOneAndUpdate(
+    const order = await Order.findOneAndUpdate(
       {
         payment_intent: req.body.payment_intent,
       },
@@ -58,7 +58,14 @@ exports.confirm = async (req, res, next) => {
         },
       }
     );
-
+    if (order.isCompleted === true) {
+      await Gig.findByIdAndUpdate(
+        { _id: order.gigId },
+        {
+          $inc: { sales: 1 },
+        }
+      );
+    }
     res.status(200).send("Order has been confirmed.");
   } catch (err) {
     next(err);
