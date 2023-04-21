@@ -14,15 +14,6 @@ A project using the entire MERN stack, where the user can buy gigs using the gat
 
 **Gateway:** Stripe
 
-## Installation
-
-Install my-project with npm
-
-```bash
-  npm install my-project
-  cd my-project
-```
-
 ## Run Locally
 
 Clone the project
