@@ -4,3 +4,7 @@
     color: inherit;
   }
 }
+a:-webkit-any-link {
+  cursor: pointer;
+  text-decoration: none;
+}

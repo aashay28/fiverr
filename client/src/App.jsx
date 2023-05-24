@@ -17,11 +17,19 @@ import MyGigs from "./pages/myGigs/MyGigs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Pay from "./pages/pay/Pay";
 import Success from "./pages/success/Success";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const queryClient = new QueryClient();
 
   const Layout = () => {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
     return (
       <div className='app'>
         <QueryClientProvider client={queryClient}>
