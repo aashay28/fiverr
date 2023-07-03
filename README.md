@@ -1,5 +1,3 @@
-# fiverr
-
 # Fiverr
 
 A project using the entire MERN stack, where the user can buy gigs using the gateway connected to Stripe and the seller may add gigs.
